@@ -1,0 +1,119 @@
+.login-pg {
+  background: #044a7c;
+  height: 100%;
+
+  .banner {
+    padding-top: 20px;
+    padding-left: 30px;
+    color: white;
+    font-family: "Montserrat Bold", sans-serif;
+  }
+}
+
+.login-box {
+  padding: 35px 40px 30px 40px;
+  margin: 50px auto;
+  background: white;
+  overflow: auto;
+  line-height: 30px;
+  
+
+  h2 {
+    font-family: "Montserrat Bold", sans-serif;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 5px;
+    line-height: 25px;
+    font-size: 90%;
+  }
+
+  label {
+    font-family: "Montserrat Medium", sans-serif;
+    font-size: 90%;
+    margin-bottom: 0px;
+  }
+
+  .description {
+    font-family: "Montserrat Thin", sans-serif;
+  }
+
+  .btn-login {
+    background: #77cced;
+    border-radius: 3px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 0.07em;
+    border: none;
+    width: 60%;
+    font-family: "Montserrat Medium", sans-serif;
+  }
+
+  .row {
+    a {
+      float: right;
+    }
+  }
+
+  .form-group {
+    em {
+      font-weight: bold;
+      font-size: 80%;
+      font-family: "Montserrat Thin", sans-serif;
+    }
+  }
+  
+  .forgot-pass {
+    a {
+      font-family: "Montserrat Thin", sans-serif;
+      font-weight: bold;
+      font-size: 80%;
+    }
+  }
+
+  .item-check {
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    position: relative;
+    label {
+      font-family: "Montserrat Thin", sans-serif;
+      font-weight: bold;
+      font-size: 80%;
+    }
+
+    #term-service, #remember-me {
+      width: auto;
+      height: auto;
+      margin: 1em 0.5em 1em 0;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .login-box {
+    width: 60%;
+  }
+}
+
+@media (min-width: 992px) {
+  .login-box {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .login-box {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .login-box {
+    width: 40%;
+  }
+}

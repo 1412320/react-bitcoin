@@ -10,11 +10,15 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-on-rails": "^10.0.2",
+    "reactstrap": "^5.0.0-alpha.3",
     "react_ujs": "^2.4.2",
     "ts-loader": "^3.1.1",
     "typescript": "^2.6.1"
   },
   "devDependencies": {
+    "@types/react": "^16.0.10",
+    "@types/react-dom": "^16.0.1",
+    "@types/reactstrap": "^5.0.1",
     "webpack-dev-server": "^2.9.4"
   }
 }

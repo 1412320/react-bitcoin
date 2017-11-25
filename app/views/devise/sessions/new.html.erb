@@ -1,4 +1,6 @@
-<%= react_component("LoginBox", prerender: false) %>
+<div id="root"></div>
+<%= javascript_pack_tag 'login','data-turbolinks-track': 'reload' %>
+
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
