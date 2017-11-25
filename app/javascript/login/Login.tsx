@@ -41,11 +41,11 @@ export default class Login extends React.Component<LoginProps, LoginState> {
   }
 
   handleChange(e) {
-    if (e.target.name == 'user_session[email]')
+    if (e.target.name == 'user[email]')
       this.setState({
         mail: e.target.value
       });
-    if (e.target.name == 'user_session[password]')
+    if (e.target.name == 'user[password]')
       this.setState({
         pass: e.target.value
       });
@@ -54,7 +54,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
   handleSubmit(e) {
     e.preventDefault();
     
-    axios.post('/user_sessions.json', {
+    axios.post('/users/sessions.json', {
       user_session: {
         email: this.state.mail,
         password: this.state.pass
@@ -82,34 +82,31 @@ export default class Login extends React.Component<LoginProps, LoginState> {
       }
     return(
         <LoginBox title="Sign in" desc="Sign in to your account">
-        <div className="login-content">
-          <Form action="/user_sessions" method="post" onSubmit={this.handleSubmit.bind(this)}>
+           <Form action="/users/sign_in" method="post">
             <FormGroup>
-            <div id='login-alert'>
-              { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
-            </div>
-              <Label className="login-label">ID</Label>
+              <div id='login-alert'>
+                { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
+              </div>
+              <Label className="login-label">Email</Label>
               <Input type="email" className={mailclasses.join(' ')} 
-                     name="user_session[email]" onChange={this.handleChange.bind(this)}/>
+                     name="user[email]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
             <FormGroup>
-              <Label className="login-label">PASS</Label>
+              <Label className="login-label">Password</Label>
               <Input type="password" className={passclass.join(' ')} 
-                     name="user_session[password]" onChange={this.handleChange.bind(this)}/>
+                     name="user[password]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
             <div>
               <Input id="checkbox-remember" type="checkbox" 
-                     name="user_session[remember_me]" value={0} onChange={this.toggleChange}
+                     name="user[remember_me]" value={0} onChange={this.toggleChange}
                      defaultChecked={true}/>
               <Label className="remember-label" 
                      for="checkbox-remember">Remember Login Information</Label>
             </div>
             <div className="forgot-pass-link">
-            {/* <a href="#" onClick={this.handleForgot}>Forgotten your password?</a> */}
             </div>
-            <Button type="submit" id="login-btn" color="danger" block={true}>Login</Button>
-          </Form>
-        </div>      
+            <Button type="submit" className="btn btn-login" block={true}>Login</Button>
+          </Form>     
         </LoginBox>
     );
   }

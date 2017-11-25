@@ -44,6 +44,7 @@
   }
 
   .btn-login {
+    margin-top: 15px;
     background: #77cced;
     border-radius: 3px;
     font-weight: 400;
@@ -51,8 +52,13 @@
     color: white;
     letter-spacing: 0.07em;
     border: none;
-    width: 60%;
+    width: 100%;
+    height: 40px;
     font-family: "Montserrat Medium", sans-serif;
+    cursor: pointer;
+    &:hover {
+      background-color: #3ca2c7;
+    }
   }
 
   .row {
@@ -117,5 +123,68 @@
 @media (min-width: 1440px) {
   .login-box {
     width: 40%;
+  }
+}
+
+#root {
+  [type="checkbox"]:checked,
+  [type="checkbox"]:not(:checked) {
+      position: absolute;
+      left: -9999px;
+  }
+  [type="checkbox"]:checked + label,
+  [type="checkbox"]:not(:checked) + label
+  {
+      position: relative;
+      padding-left: 25px;
+      margin-left: 5px;
+      margin-right: 5px;
+      cursor: pointer;
+      line-height: 20px;
+      display: inline-block;
+      color: #666;
+  }
+  [type="checkbox"]:checked + label:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #0072AF;
+    background: #0072AF;
+    border-radius: 3px;
+  }
+  [type="checkbox"]:not(:checked) + label:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      background: #B1B1B1;
+      border-radius: 3px;
+  }
+  [type="checkbox"]:checked + label:after,
+  [type="checkbox"]:not(:checked) + label:after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-image: url('tick.png');
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      -webkit-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+  }
+  [type="checkbox"]:not(:checked) + label:after {
+      opacity: 0;
+      -webkit-transform: scale(0);
+      transform: scale(0);
+  }
+  [type="checkbox"]:checked + label:after {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
   }
 }
