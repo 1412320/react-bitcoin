@@ -2,46 +2,30 @@ import * as React from 'react';
 import { Input, Label, Button, FormGroup, Container, Form } from 'reactstrap';
 import { render } from 'react-dom';
 import LoginBox from './LoginBox';
-import LoginRouter from './LoginRouter';
-import Signup from './Signup';
 import { Link } from 'react-router-dom';
-
 // import ForgotPass from './ForgotPass';
 import axios from 'axios';
 
-export interface LoginState {
-  isRemember: boolean;
+export interface SignupState {
   mail: string;
   pass: string;
+  confirm: string;
   error: string;
 }
 
-export interface LoginProps {
+export interface SignupProps {
   alert: string;
 }
 
-export default class Login extends React.Component<LoginProps, LoginState> {
-  constructor(props: LoginProps) {
+export default class Login extends React.Component<SignupProps, SignupState> {
+  constructor(props: SignupProps) {
     super(props);
     this.state = {
-      isRemember: true,
       mail: '',
       pass: '',
+      confirm: '',
       error: this.props.alert
     };
-  }
-
-  // handleForgot(e) {
-  //   e.preventDefault();
-  //   render(<ForgotPass/>, document.getElementById('root') as HTMLElement)
-  // }
-
-  toggleChange(e) {
-    var input = e.target;
-    if (input.value == 0)
-      input.value = 1
-    else
-      input.value = 0
   }
 
   handleChange(e) {
@@ -85,8 +69,8 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         passclass.push('input-alert');
       }
     return(
-        <LoginBox title="Sign in" desc="Sign in to your account">
-           <Form action="/users/sign_in" method="post">
+        <LoginBox title="Sign up" desc="Sign in to your account">
+           <Form action="/users/sign_up" method="post">
             <FormGroup>
               <div id='login-alert'>
                 { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
@@ -100,18 +84,16 @@ export default class Login extends React.Component<LoginProps, LoginState> {
               <Input type="password" className={passclass.join(' ')} 
                      name="user[password]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
-            <div>
-              <Input id="checkbox-remember" type="checkbox" 
-                     name="user[remember_me]" value={0} onChange={this.toggleChange}
-                     defaultChecked={true}/>
-              <Label className="remember-label" 
-                     for="checkbox-remember">Remember Login Information</Label>
-            </div>
+            <FormGroup>
+              <Label className="login-label">Password confirmation</Label>
+              <Input type="password" className={passclass.join(' ')} 
+                     name="user[password]" onChange={this.handleChange.bind(this)}/>
+            </FormGroup>
             <div className="forgot-pass-link">
             </div>
-            <Button type="submit" className="btn btn-login" block={true}>Login</Button>
+            <Button type="submit" className="btn btn-login" block={true}>Sign up</Button>
           </Form>
-          <Link to="/users/sign_up">Sign up</Link>
+          <Link to="/users/sign_in">Sign in</Link>
         </LoginBox>
     );
   }
