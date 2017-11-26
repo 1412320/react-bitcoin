@@ -91,7 +91,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
               <div id='login-alert'>
                 { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
               </div>
-              <Label className="login-label">Email</Label>
+              <Label className="login-label">Wallet ID</Label>
               <Input type="email" className={mailclasses.join(' ')} 
                      name="user[email]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
