@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Login from './Login';
-import LoginRouter from './LoginRouter';
+import MainContainer from './MainContainer';
 
 var login = document.getElementById('root');
 
@@ -9,7 +8,7 @@ if (!!login) {
   let alert:string = login.getAttribute('data-alert');
   ReactDOM.render(
     <div>
-      <LoginRouter></LoginRouter>
+      <MainContainer></MainContainer>
     </div>
   , document.getElementById('root') as HTMLElement)
 }

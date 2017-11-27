@@ -5,8 +5,6 @@ import LoginBox from './LoginBox';
 import LoginRouter from './LoginRouter';
 import Signup from './Signup';
 import { Link } from 'react-router-dom';
-
-// import ForgotPass from './ForgotPass';
 import axios from 'axios';
 
 export interface LoginState {
@@ -31,11 +29,6 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     };
   }
 
-  // handleForgot(e) {
-  //   e.preventDefault();
-  //   render(<ForgotPass/>, document.getElementById('root') as HTMLElement)
-  // }
-
   toggleChange(e) {
     var input = e.target;
     if (input.value == 0)
@@ -57,15 +50,16 @@ export default class Login extends React.Component<LoginProps, LoginState> {
 
   handleSubmit(e) {
     e.preventDefault();
-    
-    axios.post('/users/sessions.json', {
-      user_session: {
+    console.log
+    axios.post('/users/sign_in', {
+      user: {
         wallet_id: this.state.w_id,
         password: this.state.pass
       }
     })
     .then(response => {
-      window.location.href = response.data.redirect
+      window.localStorage.setItem('auth_token', response.data.auth_token);
+      window.location.href = '/users/sign_up';
     })
     .catch(error => {
       this.setState({
@@ -86,7 +80,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
       }
     return(
         <LoginBox title="Sign in" desc="Sign in to your account">
-           <Form action="/users/sign_in" method="post">
+           <Form action="/users/sign_in" method="post" onSubmit={this.handleSubmit.bind(this)}>
             <FormGroup>
               <div id='login-alert'>
                 { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }

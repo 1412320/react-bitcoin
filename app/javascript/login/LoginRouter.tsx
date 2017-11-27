@@ -11,14 +11,10 @@ import Signup from './Signup';
 export default class LoginRouter extends React.Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Switch>
-            <Route path='/users/sign_in' component={Login}/>
-            <Route path='/users/sign_up' component={Signup}/>
-          </Switch>
-        </div>
-      </Router>
+      <Switch>
+        <Route path='/users/sign_in' component={Login}/>
+        <Route path='/users/sign_up' component={Signup}/>
+      </Switch>
     );
   }
 }
