@@ -37,20 +37,24 @@ export default class Login extends React.Component<SignupProps, SignupState> {
       this.setState({
         pass: e.target.value
       });
+    if (e.target.name == 'user[password_confirmation]')
+      this.setState({
+        confirm: e.target.value
+      });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     
-    axios.post('/users/registrations.json', {
-      user_session: {
+    axios.post('/users', {
+      user: {
         email: this.state.mail,
         password: this.state.pass,
         password_confirmation: this.state.confirm
       }
     })
     .then(response => {
-      window.location.href = response.data.redirect
+      window.location.hash = '/users/sign_in';
     })
     .catch(error => {
       this.setState({
@@ -71,7 +75,7 @@ export default class Login extends React.Component<SignupProps, SignupState> {
       }
     return(
         <LoginBox title="Sign up" desc="Sign in to your account">
-           <Form action="/users" method="post">
+           <Form action="/users" method="post" onSubmit = {this.handleSubmit.bind(this)}>
             <FormGroup>
               <div id='login-alert'>
                 { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
@@ -90,8 +94,6 @@ export default class Login extends React.Component<SignupProps, SignupState> {
               <Input type="password" className={passclass.join(' ')} 
                      name="user[password_confirmation]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
-            <div className="forgot-pass-link">
-            </div>
             <Button type="submit" className="btn btn-login" block={true}>Sign up</Button>
           </Form>
           <Link to="/users/sign_in">Sign in</Link>

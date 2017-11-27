@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Input, Label, Button, FormGroup, Container, Form } from 'reactstrap';
 import { render } from 'react-dom';
 import LoginBox from './LoginBox';
-import LoginRouter from './LoginRouter';
 import Signup from './Signup';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { MouseEvent } from 'react';
 
 export interface LoginState {
   isRemember: boolean;
@@ -16,6 +16,7 @@ export interface LoginState {
 
 export interface LoginProps {
   alert: string;
+  updateToken(): void;
 }
 
 export default class Login extends React.Component<LoginProps, LoginState> {
@@ -50,7 +51,6 @@ export default class Login extends React.Component<LoginProps, LoginState> {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log
     axios.post('/users/sign_in', {
       user: {
         wallet_id: this.state.w_id,
@@ -59,7 +59,8 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     })
     .then(response => {
       window.localStorage.setItem('auth_token', response.data.auth_token);
-      window.location.href = '/users/sign_up';
+      this.props.updateToken();
+      window.location.hash = '/';
     })
     .catch(error => {
       this.setState({
