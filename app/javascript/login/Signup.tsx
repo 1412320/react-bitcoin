@@ -42,10 +42,11 @@ export default class Login extends React.Component<SignupProps, SignupState> {
   handleSubmit(e) {
     e.preventDefault();
     
-    axios.post('/users/sessions.json', {
+    axios.post('/users/registrations.json', {
       user_session: {
         email: this.state.mail,
-        password: this.state.pass
+        password: this.state.pass,
+        password_confirmation: this.state.confirm
       }
     })
     .then(response => {
@@ -70,7 +71,7 @@ export default class Login extends React.Component<SignupProps, SignupState> {
       }
     return(
         <LoginBox title="Sign up" desc="Sign in to your account">
-           <Form action="/users/sign_up" method="post">
+           <Form action="/users" method="post">
             <FormGroup>
               <div id='login-alert'>
                 { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
@@ -87,7 +88,7 @@ export default class Login extends React.Component<SignupProps, SignupState> {
             <FormGroup>
               <Label className="login-label">Password confirmation</Label>
               <Input type="password" className={passclass.join(' ')} 
-                     name="user[password]" onChange={this.handleChange.bind(this)}/>
+                     name="user[password_confirmation]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
             <div className="forgot-pass-link">
             </div>

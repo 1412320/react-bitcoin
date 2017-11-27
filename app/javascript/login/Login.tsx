@@ -11,7 +11,7 @@ import axios from 'axios';
 
 export interface LoginState {
   isRemember: boolean;
-  mail: string;
+  w_id: string;
   pass: string;
   error: string;
 }
@@ -25,7 +25,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     super(props);
     this.state = {
       isRemember: true,
-      mail: '',
+      w_id: '',
       pass: '',
       error: this.props.alert
     };
@@ -45,9 +45,9 @@ export default class Login extends React.Component<LoginProps, LoginState> {
   }
 
   handleChange(e) {
-    if (e.target.name == 'user[email]')
+    if (e.target.name == 'user[wallet_id]')
       this.setState({
-        mail: e.target.value
+        w_id: e.target.value
       });
     if (e.target.name == 'user[password]')
       this.setState({
@@ -60,7 +60,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     
     axios.post('/users/sessions.json', {
       user_session: {
-        email: this.state.mail,
+        wallet_id: this.state.w_id,
         password: this.state.pass
       }
     })
@@ -92,8 +92,8 @@ export default class Login extends React.Component<LoginProps, LoginState> {
                 { this.state.error != '' ? <p>{this.state.error}</p> : <span></span> }
               </div>
               <Label className="login-label">Wallet ID</Label>
-              <Input type="email" className={mailclasses.join(' ')} 
-                     name="user[email]" onChange={this.handleChange.bind(this)}/>
+              <Input type="text" className={mailclasses.join(' ')} 
+                     name="user[wallet_id]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
             <FormGroup>
               <Label className="login-label">Password</Label>

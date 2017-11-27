@@ -1,25 +1,23 @@
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
-  skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate_user!
   # GET /resource/sign_in
   # def new
   #   super
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.find_by(wallet_id: params[:user][:wallet_id])
+    if (@user.valid_password?(params[:user][:password]))
+      render json: @user, status: 201
+    else
+      render json: {errors: @user_session.errors.full_messages}, status: 401
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
   #   super
   # end
-
-  # protected
-
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
 end
