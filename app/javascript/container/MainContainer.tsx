@@ -13,13 +13,15 @@ import Logout from '../login/Logout';
 
 interface MainContainerState {
   auth_token: string;
+  uuid: string;
 }
 
 export default class MainContainer extends React.Component<{},MainContainerState> {
   constructor(props) {
     super(props);
     this.state = {
-      auth_token: ''
+      auth_token: '',
+      uuid: ''
     }
   }
 
@@ -33,6 +35,12 @@ export default class MainContainer extends React.Component<{},MainContainerState
     })
   }
 
+  sendUuid(uuid) {
+    this.setState({
+      uuid: uuid
+    })
+  }
+
   render() {
     const LoginRouter = () => {
       if (this.state.auth_token != '') {
@@ -41,7 +49,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login alert={''} updateToken={this.updateToken.bind(this)}/>
+          <Login alert={''} updateToken={this.updateToken.bind(this)} uuid={this.state.uuid}/>
         );
       }
     }
@@ -53,7 +61,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Signup alert={''}/>
+          <Signup alert={''} sendUuid={this.sendUuid.bind(this)}/>
         );
       }
     }
@@ -79,7 +87,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login alert={''} updateToken={this.updateToken.bind(this)}/>
+          <Login alert={''} updateToken={this.updateToken.bind(this)} uuid={this.state.uuid}/>
         );
       }
     }

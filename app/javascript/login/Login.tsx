@@ -16,6 +16,7 @@ export interface LoginState {
 
 export interface LoginProps {
   alert: string;
+  uuid: string;
   updateToken(): void;
 }
 
@@ -24,7 +25,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
     super(props);
     this.state = {
       isRemember: true,
-      w_id: '',
+      w_id: this.props.uuid,
       pass: '',
       error: this.props.alert
     };
@@ -80,7 +81,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
         passclass.push('input-alert');
       }
     return(
-        <LoginBox title="Sign in" desc="Sign in to your account">
+        <LoginBox title="Sign in" desc="Sign in to your wallet">
            <Form action="/users/sign_in" method="post" onSubmit={this.handleSubmit.bind(this)}>
             <FormGroup>
               <div id='login-alert'>
@@ -88,7 +89,8 @@ export default class Login extends React.Component<LoginProps, LoginState> {
               </div>
               <Label className="login-label">Wallet ID</Label>
               <Input type="text" className={mailclasses.join(' ')} 
-                     name="user[wallet_id]" onChange={this.handleChange.bind(this)}/>
+                     name="user[wallet_id]" onChange={this.handleChange.bind(this)}
+                     value={this.state.w_id}/>
             </FormGroup>
             <FormGroup>
               <Label className="login-label">Password</Label>

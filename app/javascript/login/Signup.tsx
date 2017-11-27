@@ -3,7 +3,6 @@ import { Input, Label, Button, FormGroup, Container, Form } from 'reactstrap';
 import { render } from 'react-dom';
 import LoginBox from './LoginBox';
 import { Link } from 'react-router-dom';
-// import ForgotPass from './ForgotPass';
 import axios from 'axios';
 
 export interface SignupState {
@@ -15,6 +14,7 @@ export interface SignupState {
 
 export interface SignupProps {
   alert: string;
+  sendUuid(uuid: string): void;
 }
 
 export default class Login extends React.Component<SignupProps, SignupState> {
@@ -54,6 +54,7 @@ export default class Login extends React.Component<SignupProps, SignupState> {
       }
     })
     .then(response => {
+      this.props.sendUuid(response.data.wallet_id);
       window.location.hash = '/users/sign_in';
     })
     .catch(error => {
