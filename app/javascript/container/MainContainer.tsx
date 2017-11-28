@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Login from '../login/Login';
 import Signup from '../login/Signup';
-import Content from '../wallet/Content';
+import Home from '../wallet/Home';
 import Logout from '../login/Logout';
 
 interface MainContainerState {
@@ -84,7 +84,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
     const DashboardRouter = () => {
       if (this.state.auth_token != '') {
         return (
-          <Content/>
+          <Home/>
         );
       }
       else {
