@@ -17,6 +17,7 @@ interface MainContainerState {
 }
 
 export default class MainContainer extends React.Component<{},MainContainerState> {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +50,8 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login alert={''} updateToken={this.updateToken.bind(this)} uuid={this.state.uuid}/>
+          <Login alert={''} updateToken={this.updateToken.bind(this)} 
+                 uuid={this.state.uuid}/>
         );
       }
     }
@@ -87,7 +89,8 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login alert={''} updateToken={this.updateToken.bind(this)} uuid={this.state.uuid}/>
+          <Login alert={''} updateToken={this.updateToken.bind(this)} 
+                 uuid={this.state.uuid}/>
         );
       }
     }

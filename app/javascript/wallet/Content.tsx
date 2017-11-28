@@ -3,17 +3,36 @@ import { Row, Col, Button, Card, CardText, CardBody, CardTitle, CardSubtitle,
         Modal, ModalBody, ModalHeader } from 'reactstrap';
 import DashBoard from './Dashboard';
 import WalletForm from './Form';
+import axios from 'axios';
 
 interface ContentState {
   modal: boolean;
+  balance: number;
+  wallet_id: string;
 }
 
 export default class Content extends React.Component<{}, ContentState> {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      wallet_id: '',
+      balance: 0
     }
+  }
+
+  componentWillMount() {
+    const token = window.localStorage.getItem('auth_token');
+    axios.get(`/wallets/${token}`)
+    .then(response => {
+      this.setState({
+        wallet_id: response.data.w_id,
+        balance: response.data.balance
+      })
+    })
+    .catch(error => {
+
+    })
   }
 
   toggle() {
@@ -34,14 +53,16 @@ export default class Content extends React.Component<{}, ContentState> {
           Send
         </Button>
 
+        <span className="wallet-id">My wallet ID: {this.state.wallet_id}</span>
+
         <hr/>
         <Row>
-          <Col md="4" sm="12">
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
             <div className="wallet-card">
               <Card>
                 <CardTitle>YOUR BALANCES</CardTitle>
                 <hr/>
-                <CardText>100$</CardText>
+                <CardText>${this.state.balance}</CardText>
               </Card>
             </div>
           </Col>
