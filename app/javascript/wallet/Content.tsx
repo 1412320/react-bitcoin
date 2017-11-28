@@ -21,7 +21,7 @@ export default class Content extends React.Component<{}, ContentState> {
     }
   }
 
-  componentWillMount() {
+  getWalletInfo() {
     const token = window.localStorage.getItem('auth_token');
     axios.get(`/wallets/${token}`)
     .then(response => {
@@ -35,10 +35,19 @@ export default class Content extends React.Component<{}, ContentState> {
     })
   }
 
+  componentWillMount() {
+    this.getWalletInfo();
+  }
+
   toggle() {
     this.setState({
       modal: !this.state.modal
     })
+  }
+
+  handleSuccess() {
+    this.toggle();
+    this.getWalletInfo();
   }
 
   render() {
@@ -74,7 +83,8 @@ export default class Content extends React.Component<{}, ContentState> {
           </ModalHeader>
           <hr/>
           <ModalBody>
-            <WalletForm></WalletForm>
+            <WalletForm sender_id={this.state.wallet_id} 
+                        handleSuccess={this.handleSuccess.bind(this)}></WalletForm>
           </ModalBody>
         </Modal>
       </DashBoard>

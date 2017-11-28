@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   }
 
   resources :wallets, only: [:show]
-
+  resources :transcriptions, only: [:create]
 end
