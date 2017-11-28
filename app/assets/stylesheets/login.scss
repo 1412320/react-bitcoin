@@ -127,6 +127,11 @@
   }
 }
 
+.input-alert {
+  background-color: #FAD5D5 !important;
+  border-color: #FAD5D5 !important;  
+}
+
 #login-checkbox {
   [type="checkbox"]:checked,
   [type="checkbox"]:not(:checked) {

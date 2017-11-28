@@ -6,19 +6,94 @@ interface HomeProps {
   balance: number;
 }
 
-export default class Home extends React.Component<HomeProps, {}> {
+interface HomeState {
+  is_newest: boolean;
+  is_all: boolean;
+  transcriptions: Array<TranscriptionInfo>;
+}
+
+interface TranscriptionInfo {
+  sender: string;
+  recipient: string;
+  amount: number;
+  description: string;
+}
+
+export default class Home extends React.Component<HomeProps, HomeState> {
   constructor(props: HomeProps) {
     super(props);
+    this.state = ({
+      transcriptions: new Array<TranscriptionInfo>(),
+      is_all: false,
+      is_newest: true
+    })
   }
 
-  componentWillMount() {
+  handleAll() {
+    this.setState({
+      is_all: true,
+      is_newest: false
+    },this.refresh)
+  }
+
+  handleNewest() {
+    this.setState({
+      is_all: false,
+      is_newest: true
+    },this.refresh)
+  }
+
+  getNewest() {
     axios.get('/transcriptions/newest')
     .then(response => {
-      console.log(response.data);
+      response.data.forEach(e => {
+        this.state.transcriptions.push({
+          sender: e.sender_id,
+          recipient: e.recipient_id,
+          amount: e.amount,
+          description: e.description
+        })
+      })
+      this.setState(this.state);
     })
     .catch(error => {
 
     })
+  }
+
+  getAll() {
+    axios.get('/transcriptions/all')
+    .then(response => {
+      response.data.forEach(e => {
+        this.state.transcriptions.push({
+          sender: e.sender_id,
+          recipient: e.recipient_id,
+          amount: e.amount,
+          description: e.description
+        })
+      })
+      this.setState(this.state);
+    })
+    .catch(error => {
+
+    })
+  }
+
+  refresh() {
+    this.setState({
+      transcriptions: new Array<TranscriptionInfo>()
+    })
+
+    if (this.state.is_all) {
+      this.getAll();
+    }
+    else {
+      this.getNewest();
+    }
+  }
+
+  componentWillMount() {
+    this.refresh();
   }
 
   render() {
@@ -36,36 +111,37 @@ export default class Home extends React.Component<HomeProps, {}> {
         <Col sm="12" md="9">
           <div className="wallet-card">
             <Card className="card-transcription">
-              <CardTitle>NEWEST TRANSCRIPTIONS</CardTitle>
+              <Row>
+                <Col md="9" sm="12">
+                  <CardTitle>NEWEST TRANSCRIPTIONS</CardTitle>
+                </Col>
+                <Col md="3" sm="4">
+                  <Button className="btn-newest" onClick={this.handleNewest.bind(this)}>Newest</Button>
+                  <Button className="btn-all" onClick={this.handleAll.bind(this)}>All</Button>
+                </Col>
+              </Row>
               <div className="card-table">
                 <Table>
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
+                      <th>Sender</th>
+                      <th>Recipient</th>
+                      <th>Amount</th>
+                      <th>Description</th>                  
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
-                    </tr>
+                    {this.state.transcriptions.map((e, i) => (
+                      <tr key={i}>
+                        <th scope="row">{i + 1}</th>
+                        <td>{e.sender}</td>
+                        <td>{e.recipient}</td>
+                        <td>{e.amount}</td>
+                        <td>{e.description}</td>
+                      </tr>
+                    ))
+                    }
                   </tbody>
                 </Table>
               </div>

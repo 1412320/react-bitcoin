@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :wallets, only: [:show]
   resources :transcriptions, only: [:create]
   get '/transcriptions/newest', to: 'transcriptions#newest'
+  get '/transcriptions/all', to: 'transcriptions#all'
 end

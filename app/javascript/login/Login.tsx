@@ -72,8 +72,8 @@ export default class Login extends React.Component<LoginProps, LoginState> {
   }
 
   render() {
-    var mailclasses = ["input-color"];
-    var passclass = ["input-color"];
+    var mailclasses = [];
+    var passclass = [];
       if (this.state.error == "Email is not valid") {
         mailclasses.push('input-alert');
       }
