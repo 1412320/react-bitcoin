@@ -82,7 +82,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
     }
 
     const DashboardRouter = () => {
-      if (this.state.auth_token != '') {
+      if (this.state.auth_token != '' && this.state.auth_token != null) {
         return (
           <HomeContainer/>
         );
