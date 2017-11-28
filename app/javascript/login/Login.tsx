@@ -15,7 +15,6 @@ export interface LoginState {
 }
 
 export interface LoginProps {
-  alert: string;
   uuid: string;
   updateToken(): void;
 }
@@ -27,7 +26,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
       isRemember: true,
       w_id: this.props.uuid,
       pass: '',
-      error: this.props.alert
+      error: ''
     };
   }
 
@@ -64,6 +63,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
       window.location.hash = '/';
     })
     .catch(error => {
+      console.log(error.response.data.errors);
       this.setState({
         error: error.response.data.errors
       });

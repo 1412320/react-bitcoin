@@ -13,7 +13,6 @@ export interface SignupState {
 }
 
 export interface SignupProps {
-  alert: string;
   sendUuid(uuid: string): void;
 }
 
@@ -24,7 +23,7 @@ export default class Login extends React.Component<SignupProps, SignupState> {
       mail: '',
       pass: '',
       confirm: '',
-      error: this.props.alert
+      error: ''
     };
   }
 

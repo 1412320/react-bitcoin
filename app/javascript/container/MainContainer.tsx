@@ -50,7 +50,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login alert={''} updateToken={this.updateToken.bind(this)} 
+          <Login updateToken={this.updateToken.bind(this)} 
                  uuid={this.state.uuid}/>
         );
       }
@@ -63,7 +63,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Signup alert={''} sendUuid={this.sendUuid.bind(this)}/>
+          <Signup sendUuid={this.sendUuid.bind(this)}/>
         );
       }
     }
@@ -89,7 +89,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login alert={''} updateToken={this.updateToken.bind(this)} 
+          <Login updateToken={this.updateToken.bind(this)} 
                  uuid={this.state.uuid}/>
         );
       }
