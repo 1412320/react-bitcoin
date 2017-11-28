@@ -97,7 +97,7 @@ export default class Login extends React.Component<LoginProps, LoginState> {
               <Input type="password" className={passclass.join(' ')} 
                      name="user[password]" onChange={this.handleChange.bind(this)}/>
             </FormGroup>
-            <div>
+            <div id="login-checkbox">
               <Input id="checkbox-remember" type="checkbox" 
                      name="user[remember_me]" value={0} onChange={this.toggleChange}
                      defaultChecked={true}/>
