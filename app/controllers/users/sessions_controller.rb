@@ -7,5 +7,4 @@ class Users::SessionsController < Devise::SessionsController
       render json: {errors: @user_session.errors.full_messages}, status: 401
     end
   end
-
 end
