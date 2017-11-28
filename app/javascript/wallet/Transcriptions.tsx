@@ -1,43 +1,15 @@
 import * as React from 'react';
-import { Row, Col, Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Table } from 'reactstrap';
-import axios from 'axios';
+import { Col, Row, Table, Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 
-interface HomeProps {
-  balance: number;
-}
-
-export default class Home extends React.Component<HomeProps, {}> {
-  constructor(props: HomeProps) {
-    super(props);
-  }
-
-  componentWillMount() {
-    axios.get('/transcriptions/newest')
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-
-    })
-  }
-
+export default class Transcriptions extends React.Component {
   render() {
     return (
       <Row>
-        <Col sm="12" md="3">
-          <div className="wallet-card">
-            <Card className="card-balance">
-              <CardTitle>YOUR BALANCES</CardTitle>
-              <hr/>
-              <CardText>${this.props.balance}</CardText>
-            </Card>
-          </div>
-        </Col>
-        <Col sm="12" md="9">
+        <Col md="12">
           <div className="wallet-card">
             <Card className="card-transcription">
-              <CardTitle>NEWEST TRANSCRIPTIONS</CardTitle>
-              <div className="card-table">
+              <CardTitle>ALL TRANSCRIPTIONS</CardTitle>
+              <CardText>
                 <Table>
                   <thead>
                     <tr>
@@ -68,7 +40,7 @@ export default class Home extends React.Component<HomeProps, {}> {
                     </tr>
                   </tbody>
                 </Table>
-              </div>
+              </CardText>
             </Card>
           </div>
         </Col>

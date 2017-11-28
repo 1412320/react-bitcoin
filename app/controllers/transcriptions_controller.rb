@@ -10,6 +10,15 @@ class TranscriptionsController < ApplicationController
     end
   end
 
+  def newest
+    @transcription = Transcription.last(5)
+    if (@transcription)
+      render json: @transcription, status: 201
+    else
+      render json: { error: @transcription.errors.full_messages }, status: 401 
+    end
+  end
+
   private
   
   def transcription_params
