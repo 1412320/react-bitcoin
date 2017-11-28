@@ -57,7 +57,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
     }
 
     const SignupRouter = () => {
-      if (this.state.auth_token != '') {
+      if (this.state.auth_token != '' && this.state.auth_token != null) {
         window.location.hash = '/';
         return null;
       }
