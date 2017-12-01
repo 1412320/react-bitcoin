@@ -79,17 +79,19 @@ export default class Home extends React.Component<HomeProps, HomeState> {
     })
   }
 
-  refresh() {
-    this.setState({
-      transcriptions: new Array<TranscriptionInfo>()
-    })
-
+  checkState() {
     if (this.state.is_all) {
       this.getAll();
     }
     else {
       this.getNewest();
     }
+  }
+
+  refresh() {
+    this.setState({
+      transcriptions: new Array<TranscriptionInfo>()
+    }, this.checkState)
   }
 
   componentWillMount() {
@@ -113,7 +115,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
             <Card className="card-transcription">
               <Row>
                 <Col md="9" sm="12">
-                  <CardTitle>NEWEST TRANSCRIPTIONS</CardTitle>
+                  <CardTitle>{`${this.state.is_newest? 'NEWEST': 'ALL'} TRANSCRIPTIONS`}</CardTitle>
                 </Col>
                 <Col md="3" sm="4">
                   <Button className="btn-newest" onClick={this.handleNewest.bind(this)}>Newest</Button>

@@ -1,2 +1,2 @@
-web: rails s -p $PORT
+web: rails s
 webpacker: bin/webpack-dev-server
