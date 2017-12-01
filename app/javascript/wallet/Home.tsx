@@ -7,7 +7,6 @@ interface HomeProps {
 }
 
 interface HomeState {
-  is_newest: boolean;
   is_all: boolean;
   transcriptions: Array<TranscriptionInfo>;
 }
@@ -24,78 +23,66 @@ export default class Home extends React.Component<HomeProps, HomeState> {
     super(props);
     this.state = ({
       transcriptions: new Array<TranscriptionInfo>(),
-      is_all: false,
-      is_newest: true
+      is_all: false
     })
   }
 
   handleAll() {
     this.setState({
-      is_all: true,
-      is_newest: false
-    },this.refresh)
+      is_all: true
+    },this.getAll)
   }
 
   handleNewest() {
     this.setState({
-      is_all: false,
-      is_newest: true
-    },this.refresh)
+      is_all: false
+    },this.getNewest)
   }
 
   getNewest() {
-    axios.get('/transcriptions/newest')
-    .then(response => {
-      response.data.forEach(e => {
-        this.state.transcriptions.push({
-          sender: e.sender_id,
-          recipient: e.recipient_id,
-          amount: e.amount,
-          description: e.description
+    this.state.transcriptions.splice(0, this.state.transcriptions.length);
+    this.setState(this.state, () => {
+      axios.get('/transcriptions/newest')
+      .then(response => {
+        response.data.forEach(e => {
+          this.state.transcriptions.push({
+            sender: e.sender_id,
+            recipient: e.recipient_id,
+            amount: e.amount,
+            description: e.description
+          })
         })
+        this.setState(this.state);
       })
-      this.setState(this.state);
-    })
-    .catch(error => {
-
+      .catch(error => {
+  
+      })
     })
   }
 
   getAll() {
-    axios.get('/transcriptions/all')
-    .then(response => {
-      response.data.forEach(e => {
-        this.state.transcriptions.push({
-          sender: e.sender_id,
-          recipient: e.recipient_id,
-          amount: e.amount,
-          description: e.description
+    this.state.transcriptions.splice(0, this.state.transcriptions.length);
+    this.setState(this.state, () => {
+      axios.get('/transcriptions/all')
+      .then(response => {
+        response.data.forEach(e => {
+          this.state.transcriptions.push({
+            sender: e.sender_id,
+            recipient: e.recipient_id,
+            amount: e.amount,
+            description: e.description
+          })
         })
+        this.setState(this.state);
       })
-      this.setState(this.state);
+      .catch(error => {
+  
+      })
     })
-    .catch(error => {
-
-    })
-  }
-
-  checkState() {
-    if (this.state.is_all) {
-      this.getAll();
-    }
-    else {
-      this.getNewest();
-    }
-  }
-
-  refresh() {
-    this.setState({
-      transcriptions: new Array<TranscriptionInfo>()
-    }, this.checkState)
   }
 
   componentWillMount() {
-    this.refresh();
+    this.handleNewest();
   }
 
   render() {
@@ -115,7 +102,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
             <Card className="card-transcription">
               <Row>
                 <Col md="9" sm="12">
-                  <CardTitle>{`${this.state.is_newest? 'NEWEST': 'ALL'} TRANSCRIPTIONS`}</CardTitle>
+                  <CardTitle>{`${this.state.is_all? 'ALL': 'NEWEST'} TRANSCRIPTIONS`}</CardTitle>
                 </Col>
                 <Col md="3" sm="4">
                   <Button className="btn-newest" onClick={this.handleNewest.bind(this)}>Newest</Button>
