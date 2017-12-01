@@ -105,8 +105,8 @@ export default class Home extends React.Component<HomeProps, HomeState> {
                   <CardTitle>{`${this.state.is_all? 'ALL': 'NEWEST'} TRANSCRIPTIONS`}</CardTitle>
                 </Col>
                 <Col md="3" sm="4">
-                  <Button className="btn-newest" onClick={this.handleNewest.bind(this)}>Newest</Button>
-                  <Button className="btn-all" onClick={this.handleAll.bind(this)}>All</Button>
+                  <Button disabled={!this.state.is_all} className="btn-newest" onClick={this.handleNewest.bind(this)}>Newest</Button>
+                  <Button disabled={!!this.state.is_all} className="btn-all" onClick={this.handleAll.bind(this)}>All</Button>
                 </Col>
               </Row>
               <div className="card-table">
