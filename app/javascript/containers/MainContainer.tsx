@@ -6,10 +6,10 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import Login from '../login/Login';
-import Signup from '../login/Signup';
-import HomeContainer from '../wallet/HomeContainer';
-import Logout from '../login/Logout';
+import Login from '../components/login/Login';
+import Signup from '../components/login/Signup';
+import HomeContainer from '../components/wallet/HomeContainer';
+import Logout from '../components/login/Logout';
 
 interface MainContainerState {
   auth_token: string;
@@ -50,7 +50,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login updateToken={this.updateToken.bind(this)} 
+          <Login updateToken={this.updateToken.bind(this)}
                  uuid={this.state.uuid}/>
         );
       }
@@ -73,7 +73,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
         this.setState({
           auth_token: ''
         });
-        
+
         return (
           <Logout/>
         );
@@ -89,7 +89,7 @@ export default class MainContainer extends React.Component<{},MainContainerState
       }
       else {
         return (
-          <Login updateToken={this.updateToken.bind(this)} 
+          <Login updateToken={this.updateToken.bind(this)}
                  uuid={this.state.uuid}/>
         );
       }
